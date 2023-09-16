@@ -1,0 +1,39 @@
+version: '3'
+services:
+  api:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./services/api:/app
+    env_file:
+      - .env.local
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    networks:
+      - mynetwork
+
+  web:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./services/web:/app
+    env_file:
+      - .env.local
+    ports:
+      - "3001:3001"
+    command: npm run dev
+    networks:
+      - mynetwork
+
+  db:
+    image: postgres:15
+    env_file:
+      - .env.local
+    ports:
+      - "5432:5432"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
