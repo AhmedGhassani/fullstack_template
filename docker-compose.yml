@@ -6,7 +6,7 @@ services:
     volumes:
       - ./services/api:/app
     env_file:
-      - .env.local
+      - .env
     ports:
       - '3000:3000'
     command: npm run dev
@@ -19,7 +19,7 @@ services:
     volumes:
       - ./services/web:/app
     env_file:
-      - .env.local
+      - .env
     ports:
       - '5173:5173'
     command: npm run dev
@@ -31,7 +31,7 @@ services:
     volumes:
       - ./storage/data:/var/lib/postgresql/data
     env_file:
-      - .env.local
+      - .env
     ports:
       - '5432:5432'
     networks:

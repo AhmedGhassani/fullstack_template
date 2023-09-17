@@ -1,15 +1,24 @@
 import express, { Request, Response, NextFunction, json } from 'express';
+const cors = require('cors');
 import dotenv from 'dotenv';
 import router from './routes';
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = parseInt(process.env.PORT || '3000', 10);
 
 app.use(json());
 
-app.get('/', (req: Request, res: Response) => {
+app.use(
+  cors({
+    origin: ['http://localhost:5173', process.env.VITE_APP_URL], // Add the allowed origins here
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow credentials like cookies and authorization headers
+  }),
+);
+
+app.get('/api', (req: Request, res: Response) => {
   res.status(200).send(`${process.env.APP_NAME} is Healthy`);
 });
 
@@ -31,7 +40,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ error: 'Something went wrong' });
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server is listening on ${port}`);
-  console.log(`Health Check: http://localhost:${port}`);
+  console.log(`Health Check: http://0.0.0.0:${port}/api`);
 });
