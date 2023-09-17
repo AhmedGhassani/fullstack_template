@@ -21,13 +21,15 @@ services:
     env_file:
       - .env.local
     ports:
-      - "3001:3001"
+      - "3001:5173"
     command: npm run dev
     networks:
       - mynetwork
 
   db:
     image: postgres:15
+    volumes:
+      - ./storage/data:/var/lib/postgresql/data
     env_file:
       - .env.local
     ports:

@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(json());
 
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).send('App is Healthy');
+  res.status(200).send(`${process.env.APP_NAME} is Healthy`);
 });
 
 // Add Routes Here
