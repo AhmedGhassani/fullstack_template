@@ -3,6 +3,8 @@ services/api/dist
 services/web/node_modules
 services/web/dist
 
+storage/data
+
 .env.local
 .env.development
 .env.production

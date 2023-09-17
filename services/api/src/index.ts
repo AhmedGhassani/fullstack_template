@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction, json } from 'express';
 import dotenv from 'dotenv';
-import userRouter from './routes/users';
+import router from './routes';
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // Add Routes Here
 
-app.use('/users', userRouter);
+app.use('/api', router);
 
 // Don't Add Routes Below
 

@@ -8,7 +8,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* color: black; */
+  color: white;
   background-color: #242424;
 
   font-synthesis: none;
@@ -17,4 +17,3 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
