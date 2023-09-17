@@ -2,16 +2,17 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
 import { api } from '../config/api';
 
-interface LoginResponse {
+interface UpdatePasswordResponse {
   data: { token: string };
 }
 
-const useLogin = (
-  onSuccess: (response: AxiosResponse<LoginResponse>) => void,
+const useUpdatePassword = (
+  onSuccess: (response: AxiosResponse<UpdatePasswordResponse>) => void,
   onError: (error: AxiosError) => void,
 ) => {
   return useMutation(
-    (data: { email: string; password: string }) => api.post('/login', data),
+    (data: { password: string; passwordConfirmation: string }) =>
+      api.post('/update-password', data),
     {
       onSuccess: (response) => {
         onSuccess(response);
@@ -23,4 +24,4 @@ const useLogin = (
   );
 };
 
-export { useLogin };
+export { useUpdatePassword };
