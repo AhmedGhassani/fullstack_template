@@ -8,7 +8,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { token } = useAuth();
 
   if (!token) {
-    // user is not authenticated
     return <Navigate to={`/login`} replace />;
   }
   return <> {children} </>;

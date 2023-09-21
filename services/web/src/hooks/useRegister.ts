@@ -16,7 +16,7 @@ const useRegister = (
       password: string;
       firstName: string;
       lastName: string;
-    }) => api.post('/register', data),
+    }) => api.post('/users/register', data),
     {
       onSuccess: (response) => {
         onSuccess(response);

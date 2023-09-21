@@ -11,7 +11,8 @@ const useLogin = (
   onError: (error: AxiosError) => void,
 ) => {
   return useMutation(
-    (data: { email: string; password: string }) => api.post('/login', data),
+    (data: { email: string; password: string }) =>
+      api.post('/users/login', data),
     {
       onSuccess: (response) => {
         onSuccess(response);
