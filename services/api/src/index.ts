@@ -12,7 +12,11 @@ app.use(json());
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', process.env.VITE_APP_URL], // Add the allowed origins here
+    origin: [
+      'http://localhost:5173',
+      'http://localhost',
+      process.env.VITE_APP_URL,
+    ], // Add the allowed origins here
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials like cookies and authorization headers
   }),

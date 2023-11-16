@@ -5,6 +5,4 @@ services/web/dist
 
 storage/data
 
-.env.local
-.env.development
-.env.production
+.env

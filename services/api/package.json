@@ -9,7 +9,10 @@
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:generate": "npx prisma generate",
     "build": "tsc",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\""
+    "start": "node dist/index.js",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "docker:start:prod": "npx prisma migrate deploy && npm run start",
+    "docker:start:dev": "npm run prisma:migrate && npm run dev"
   },
   "keywords": [],
   "author": "",

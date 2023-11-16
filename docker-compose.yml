@@ -1,7 +1,9 @@
 version: '3'
 services:
   api:
-    image: node:18
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
     working_dir: /app
     volumes:
       - ./services/api:/app
@@ -9,12 +11,16 @@ services:
       - .env
     ports:
       - '3000:3000'
-    command: npm run dev
     networks:
       - mynetwork
 
   web:
-    image: node:18
+    build:
+      context: ./services/web
+      dockerfile: dockerFile
+      args:
+        - VITE_APP_URL=${VITE_APP_URL}
+        - VITE_API_URL=${VITE_API_URL}
     working_dir: /app
     volumes:
       - ./services/web:/app
