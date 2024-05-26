@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import prisma from '../../db/prisma';
-
-const secretKey = process.env.JWT_SECRET_KEY || '';
+import { secretKey } from '../../config/env';
 
 export const verifyToken = async (
   req: Request,

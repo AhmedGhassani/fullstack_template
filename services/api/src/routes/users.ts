@@ -6,7 +6,7 @@ import {
   validateUpdatePasswordBody,
 } from '../middleware/validation/users';
 import { Prisma } from '@prisma/client';
-import { generateToken, deleteToken } from '../utils';
+import { generateToken, deleteToken, refreshToken } from '../utils';
 import { verifyToken } from '../middleware/auth/verifyToken';
 import prisma from '../db/prisma';
 
@@ -76,6 +76,29 @@ userRouter.post(
     }
   },
 );
+
+userRouter.get('/refresh', async (req: Request, res: Response) => {
+  try {
+    const authHeader = req.header('Authorization');
+
+    if (!authHeader) {
+      return res
+        .status(401)
+        .json({ message: 'Unauthorized: No token provided' });
+    }
+
+    const token = authHeader.slice(7);
+
+    const newToken = await refreshToken(token);
+
+    res
+      .status(200)
+      .json({ message: 'Token refreshed', data: { token: newToken } });
+  } catch (error) {
+    console.error('Refresh token error:', error);
+    res.status(500).json({ message: 'Oops! Something went wrong' });
+  }
+});
 
 userRouter.post(
   '/update-password',

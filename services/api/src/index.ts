@@ -2,28 +2,25 @@ import express, { Request, Response, NextFunction, json } from 'express';
 const cors = require('cors');
 import dotenv from 'dotenv';
 import router from './routes';
+import { APP_NAME, FE_URL, serverPort } from './config/env';
 
 dotenv.config();
 
 const app = express();
-const port = parseInt(process.env.PORT || '3000', 10);
+const port = serverPort;
 
 app.use(json());
 
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173',
-      'http://localhost',
-      process.env.VITE_APP_URL,
-    ], // Add the allowed origins here
+    origin: ['http://localhost:5173', 'http://localhost', FE_URL], // Add the allowed origins here
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Allow credentials like cookies and authorization headers
+    credentials: true,
   }),
 );
 
 app.get('/api', (req: Request, res: Response) => {
-  res.status(200).send(`${process.env.APP_NAME} is Healthy`);
+  res.status(200).send(`${APP_NAME} is Healthy`);
 });
 
 // Add Routes Here
