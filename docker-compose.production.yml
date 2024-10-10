@@ -1,0 +1,40 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./services/web
+      dockerfile: dockerFile.Production
+    working_dir: /app
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ./services/api
+      dockerfile: dockerFile.Production
+    working_dir: /app
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - ${NGINX_HOST_HTTP_PORT}:${NGINX_INTERNAL_HTTP_PORT}
+      - ${NGINX_HOST_HTTPS_PORT}:${NGINX_INTERNAL_HTTPS_PORT}
+    volumes:
+      - ./services/nginx/logs:/var/log/nginx
+      - ./services/nginx/production/conf.d:/etc/nginx/conf.d
+      - ./services/nginx/certs:/etc/nginx/certs # SSL certificates
+    depends_on:
+      - web
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:

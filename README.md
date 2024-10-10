@@ -76,12 +76,19 @@ Copy the `.env.example` file to `.env` and update the values as needed.
 cp .env.example .env
 ```
 
-3. Start the containers
+3. Configure nginx config for production
+
+copy local configuration
+`cp ./services/nginx/conf.d/default.conf ./services/nginx/production/conf.d/default.conf`
+
+Replace `server_name localhost` with `server_name YOUR_DOMAIN_NAME` in `default.conf`
+
+4. Start the containers
 
 ```bash
 docker-compose up -d
 ```
 
-4. Access the application
+5. Access the application
 
 Open your browser and navigate to `https://localhost`.

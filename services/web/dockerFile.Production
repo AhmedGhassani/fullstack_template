@@ -1,0 +1,24 @@
+FROM node:20-bullseye AS dev
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+FROM node:20-bullseye AS prod
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY --from=dev /app/.next ./.next
+COPY --from=dev /app/public ./public
+
+CMD ["npm", "run", "start"]
