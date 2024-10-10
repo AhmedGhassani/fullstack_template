@@ -2,7 +2,9 @@ services/api/node_modules
 services/api/dist
 services/web/node_modules
 services/web/dist
+services/web/.next
 
-storage/data
+data/*
+!data/.gitkeep
 
 .env
