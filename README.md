@@ -1,36 +1,87 @@
-# Full Stack Template
+# App Name
 
 ## About
 
-The purpose of this template is to streamline getting an api and web app up and running without worrying about configuring the local environment and different versions of tools. It provides all the neccessary boilerplate code and fundamental aspects of a full stack app. From setting up initial API endpoints, basic user auth on the web app and setting up a DB with all the initial tables.
-
-This prevents the developer from loosing intrest in developing what matters by providing them with redundent code which most applications this day and age consist of.
+Basic info about project here
 
 ### Tech Stack
 
-- React App (Typescript)
+- Next App (Typescript)
 - Express JS (Typescript)
-- Prisma JS (Typescript ORM)
+- ORM TBD
+- MailHog (SMTP Server - Local Testing Only)
 - PostgreSQL
 - NGINX
 - Docker
 
-### Features
-
-Here are a list of features already developed
-
-#### Backend
-
-- Health Check Endpoint
-- Basic auth endpoints (login, register, update-password)
-- Integration with PostgreSQL database using Prisma
-- User Schema defined with Prisma
-- Authorization middleware
-
-#### Frontend
-
 ## Setup
+
+### Requirements
+
+- Docker
+- Docker Compose
 
 ### Local / Development Environment
 
+1. Install packages for intellisense
+
+```bash
+cd services/api
+npm install
+cd ../web
+npm install
+```
+
+2. Create SSL Certificates
+
+To generate an SSL certificate for local development, you can use the following command:
+
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout ./services/nginx/certs/nginx-selfsigned.key \
+  -out ./services/nginx/certs/nginx-selfsigned.crt \
+  -subj "/CN=localhost"
+```
+
+3. Populate the `.env` file
+
+Copy the `.env.example` file to `.env` and update the values as needed.
+
+```bash
+cp .env.example .env
+```
+
+4. Start the containers
+
+```bash
+docker-compose up -d
+```
+
+5. Access the application
+
+Open your browser and navigate to `https://localhost`.
+
 ### Production Environment
+
+1. Add SSL Certificates
+
+Add your SSL certificate and private key to the `services/nginx/certs` directory.
+You can use a tool like [certbot](https://certbot.eff.org/) to generate and manage your certificates.
+
+2. Populate the `.env` file
+
+Copy the `.env.example` file to `.env` and update the values as needed.
+
+```bash
+cp .env.example .env
+```
+
+3. Start the containers
+
+```bash
+docker-compose up -d
+```
+
+4. Access the application
+
+Open your browser and navigate to `https://localhost`.
