@@ -1,8 +1,10 @@
-import express, { Request, Response } from 'express';
-import userRouter from './users';
+import { Request, Response, Router } from 'express';
+import { PROJECT_NAME } from '../config/env';
 
-const router = express.Router();
+const router = Router();
 
-router.use('/users', userRouter);
+router.get(['/', '/health'], (req: Request, res: Response) => {
+  res.send(`${PROJECT_NAME} is healthy`);
+});
 
-export default router;
+export { router };

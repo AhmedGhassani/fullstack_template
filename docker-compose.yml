@@ -1,47 +1,46 @@
 version: '3'
 services:
-  api:
-    build:
-      context: ./services/api
-      dockerfile: Dockerfile
-    working_dir: /app
-    volumes:
-      - ./services/api:/app
-    env_file:
-      - .env
-    ports:
-      - '3000:3000'
-    networks:
-      - mynetwork
-
   web:
     build:
       context: ./services/web
       dockerfile: dockerFile
-      args:
-        - VITE_APP_URL=${VITE_APP_URL}
-        - VITE_API_URL=${VITE_API_URL}
     working_dir: /app
     volumes:
       - ./services/web:/app
+      - .env:/app/.env
     env_file:
       - .env
-    ports:
-      - '5173:5173'
-    command: npm run dev
     networks:
-      - mynetwork
+      - app-network
 
-  db:
-    image: postgres:15
+  api:
+    build:
+      context: ./services/api
+      dockerfile: dockerFile
+    working_dir: /app
     volumes:
-      - ./storage/data:/var/lib/postgresql/data
+      - ./services/api:/app
+      - .env:/app/.env
     env_file:
       - .env
-    ports:
-      - '5432:5432'
     networks:
-      - mynetwork
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - ${NGINX_HOST_HTTP_PORT}:${NGINX_INTERNAL_HTTP_PORT}
+      - ${NGINX_HOST_HTTPS_PORT}:${NGINX_INTERNAL_HTTPS_PORT}
+    volumes:
+      - ./services/nginx/logs:/var/log/nginx
+      - ./services/nginx/conf.d:/etc/nginx/conf.d
+      # - ./nginx/certs:/etc/nginx/certs    # SSL certificates
+    depends_on:
+      - web
+      - api
+    networks:
+      - app-network
 
 networks:
-  mynetwork:
+  app-network:

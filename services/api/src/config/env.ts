@@ -1,8 +1,18 @@
+import { z } from 'zod';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const APP_NAME = process.env.APP_NAME || 'App Name';
-export const secretKey = process.env.JWT_SECRET_KEY || '';
-export const serverPort = parseInt(process.env.PORT || '3000', 10);
-export const FE_URL = process.env.VITE_APP_URL || '';
+const envSchema = z.object({
+  PROJECT_NAME: z.string(),
+  APP_DOMAIN: z.string(),
+});
+
+const env = envSchema.safeParse(process.env);
+
+if (!env.success) {
+  console.error('Invalid / Missing environment variables:', env.error.format());
+  process.exit(1);
+}
+
+export const { PROJECT_NAME, APP_DOMAIN } = env.data;
