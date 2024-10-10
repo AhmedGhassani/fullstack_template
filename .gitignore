@@ -1,8 +1,11 @@
-services/api/node_modules
-services/api/dist
-services/web/node_modules
-services/web/dist
-services/web/.next
+node_modules
+dist
+.next
+services/nginx/logs/*
+services/nginx/certs/*
+!services/nginx/logs/.gitkeep
+!services/nginx/certs/.gitkeep
+
 
 data/*
 !data/.gitkeep
