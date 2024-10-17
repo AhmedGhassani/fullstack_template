@@ -20,6 +20,7 @@ services:
     working_dir: /app
     volumes:
       - ./services/api:/app
+      - ./data/api/logs:/app/logs
       - .env:/app/.env
     env_file:
       - .env
@@ -33,7 +34,7 @@ services:
       - ${NGINX_HOST_HTTP_PORT}:${NGINX_INTERNAL_HTTP_PORT}
       - ${NGINX_HOST_HTTPS_PORT}:${NGINX_INTERNAL_HTTPS_PORT}
     volumes:
-      - ./services/nginx/logs:/var/log/nginx
+      - ./data/nginx/logs:/var/log/nginx
       - ./services/nginx/conf.d:/etc/nginx/conf.d
       - ./services/nginx/certs:/etc/nginx/certs # SSL certificates
     depends_on:
