@@ -3,12 +3,7 @@ import cors from 'cors';
 import { APP_DOMAIN } from './config/env';
 import { router } from './routers';
 import { logger } from './config/logger';
-import {
-  HttpError,
-  BadRequestError,
-  NotFoundError,
-  UnauthorizedError,
-} from './error/HttpError';
+import { NotFoundError } from './error/HttpError';
 
 const app = express();
 const port = 3000;

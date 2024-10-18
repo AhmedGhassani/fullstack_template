@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import errorRouter from './error';
-import * as appController from '../controllers';
+import { appController } from '../controllers';
 
 const router = Router();
 

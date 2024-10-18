@@ -1,5 +1,5 @@
 import express from 'express';
-import * as errorController from '../controllers/error';
+import { errorController } from '../controllers/error';
 
 const errorRouter = express.Router();
 
