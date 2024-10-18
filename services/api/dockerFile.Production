@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run prisma:generate
+
 RUN npm run build
 
 FROM node:20-bullseye AS prod
@@ -20,4 +22,4 @@ RUN npm install --only=production
 
 COPY --from=dev /app/dist ./dist
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "docker:start:prod"]
