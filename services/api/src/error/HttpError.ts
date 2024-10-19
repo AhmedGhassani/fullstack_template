@@ -12,11 +12,29 @@ export class HttpError extends Error {
 }
 
 export class BadRequestError extends HttpError {
-  errors: ZodError | undefined;
-
-  constructor(message: string = 'Bad request', errors?: ZodError) {
+  constructor(message: string = 'Bad request') {
     super(message, 400);
+  }
+}
+
+export class InvalidBodyError extends HttpError {
+  errors: string[] | undefined;
+
+  constructor(message: string = 'Bad request', error?: ZodError) {
+    super(message, 400);
+    const errors = error?.issues.map((issue) => {
+      const field = issue.path.join('.');
+      const message = issue.message;
+      return `${field}: ${message}`;
+    });
+
     this.errors = errors;
+  }
+}
+
+export class ConflictError extends HttpError {
+  constructor(message: string = 'Conflict') {
+    super(message, 409);
   }
 }
 

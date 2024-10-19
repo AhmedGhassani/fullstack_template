@@ -9,12 +9,22 @@ datasource db {
 }
 
 model User {
+    id           String         @id @default(uuid())
+    firstName    String
+    lastName     String
+    email        String         @unique
+    password     String
+    dob          DateTime
+    RefreshToken RefreshToken[]
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+}
+
+model RefreshToken {
     id        String   @id @default(uuid())
-    firstName String
-    lastName  String
-    email     String   @unique
-    password  String
-    dob       DateTime
+    userId    String   @unique
+    token     String   @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    user      User     @relation(fields: [userId], references: [id])
 }
