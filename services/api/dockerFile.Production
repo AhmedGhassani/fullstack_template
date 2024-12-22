@@ -21,6 +21,9 @@ COPY package*.json ./
 RUN npm install --only=production
 
 COPY --from=dev /app/dist ./dist
+COPY --from=dev /app/prisma ./prisma
+
+RUN npm run prisma:generate
 
 USER node
 

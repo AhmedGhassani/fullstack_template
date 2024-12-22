@@ -1,4 +1,4 @@
-FROM node:20-bullseye AS dev
+FROM node:20-bullseye AS build
 
 WORKDIR /app
 
@@ -10,15 +10,8 @@ COPY . .
 
 RUN npm run build
 
-FROM node:20-bullseye AS prod
+FROM nginx:alpine
 
-WORKDIR /app
+COPY --from=build /app/dist /usr/share/nginx/html
 
-COPY package*.json ./
-
-RUN npm install --only=production
-
-COPY --from=dev /app/.next ./.next
-COPY --from=dev /app/public ./public
-
-CMD ["npm", "run", "start"]
+CMD ["nginx", "-g", "daemon off;"]
