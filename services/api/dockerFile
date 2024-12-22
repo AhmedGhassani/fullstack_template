@@ -10,4 +10,6 @@ COPY . .
 
 RUN npm run prisma:generate
 
+USER node
+
 CMD ["npm", "run", "docker:start:dev"]

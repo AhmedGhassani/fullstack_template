@@ -22,4 +22,6 @@ RUN npm install --only=production
 
 COPY --from=dev /app/dist ./dist
 
+USER node
+
 CMD ["npm", "run", "docker:start:prod"]
