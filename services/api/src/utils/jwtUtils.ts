@@ -15,11 +15,16 @@ export const generateRefreshToken = async (userId: string) => {
     expiresIn: '7d',
   });
 
-  await prisma.refreshToken.delete({
-    where: {
-      userId,
-    },
-  });
+  try {
+    await prisma.refreshToken.delete({
+      where: {
+        userId,
+      },
+    });
+  } catch (error: any) {
+    if (error.code !== 'P2025') {
+    }
+  }
 
   await prisma.refreshToken.create({
     data: {
