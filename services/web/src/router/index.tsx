@@ -1,20 +1,21 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
+const Dashboard = lazy(() => import('../components/layouts/Dashboard'));
 const Landing = lazy(() => import('../components/pages/Landing'));
-const Login = lazy(() => import('../components/pages/Auth/Login'));
-const Register = lazy(() => import('../components/pages/Auth/Register'));
+const Login = lazy(() => import('../components/pages/auth/Login'));
+const Register = lazy(() => import('../components/pages/auth/Register'));
 
-export enum Routes {
-  Landing = '/',
-  Login = '/auth/login',
-  Register = '/auth/register',
-}
-
-const router = createBrowserRouter([
+const routes = [
   {
     path: '/',
-    element: <Landing />,
+    element: <Dashboard />,
+    children: [
+      {
+        path: '',
+        element: <Landing />,
+      },
+    ],
   },
   {
     path: '/auth',
@@ -29,6 +30,8 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+];
+
+const router = createBrowserRouter(routes);
 
 export default router;
