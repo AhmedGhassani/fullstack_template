@@ -24,6 +24,8 @@ services:
       dockerfile: dockerFile
     container_name: web
     working_dir: /app
+    ports:
+      - 5173:5173
     volumes:
       - ./services/web:/app
       - .env:/app/.env
