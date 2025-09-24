@@ -39,6 +39,8 @@ services:
     build:
       context: ./services
       dockerfile: ./web/dockerFile.Production
+      args:
+        VITE_API_URL: ${VITE_API_URL}
     volumes:
       - ./data/nginx/logs:/var/log/nginx
     depends_on:
