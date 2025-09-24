@@ -37,12 +37,10 @@ services:
 
   nginx:
     build:
-      context: ./services/web
-      dockerfile: dockerFile.Production
+      context: ./services
+      dockerfile: ./web/dockerFile.Production
     volumes:
       - ./data/nginx/logs:/var/log/nginx
-      - ./services/nginx/production/conf.d:/etc/nginx/conf.d
-      - ./services/nginx/certs:/etc/nginx/certs
     depends_on:
       - api
     healthcheck:
